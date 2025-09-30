@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aung Myint Tun's Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000000;
+        }
+        .header-bg {
+            background-color: #000000;
+        }
+        .text-black-accent {
+            color: #ffffff;
+        }
+        .bg-card {
+            background-color: #000000;
+            border: 1px solid #1a1a1a;
+            box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -2px rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+        }
+        .skill-card {
+            background-color: #000000;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px -1px rgba(255, 255, 255, 0.1);
+        }
+        /* Custom styles for the form input/textarea */
+        .form-input {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: 1px solid #333333;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: border-color 0.3s ease;
+            width: 100%; /* Ensure inputs take full width */
+        }
+        .form-input:focus {
+            border-color: #6366f1; /* Tailwind indigo-500 for better focus */
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .typewriter {
+            display: inline-block;
+            border-right: 2px solid #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            animation: blink-caret 0.75s step-end infinite;
+            vertical-align: middle;
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #ffffff; }
+        }
+        /* Custom Keyframe for Bar Chart animation */
+        @keyframes fillBar {
+            from { height: 0%; }
+            /* 'to' uses the dynamic CSS variable set on the element */
+            to { height: var(--bar-height); } 
+        }
+        /* The class to apply the animation */
+        .animate-fillBar-start {
+            height: 0; /* Start from zero height */
+            /* This property will be dynamically set by JS to trigger the animation */
+        }
+        .animate-fillBar-active {
+            animation: fillBar 1.5s ease-out forwards;
+        }
+
+        @media (max-width: 639px) {
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                background-color: black;
+                box-shadow: 0 2px 4px rgba(255,255,255,0.1);
+                position: absolute;
+                top: 100%;
+                left: 0;
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .nav-menu a {
+                padding: 1rem 0;
+                border-bottom: 1px solid #1a1a1a;
+            }
+            .nav-menu a:last-child {
+                border-bottom: none;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased text-white">
+
+    <header class="bg-black sticky top-0 z-50 shadow-md">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-3xl font-bold text-white transition duration-300 hover:text-gray-400 animate-fadeIn" style="animation-delay: 0.1s;">
+                Aung Myint Tun
+            </a>
+            <button id="mobile-menu-button" class="sm:hidden text-white hover:text-gray-400 focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+            <div id="nav-links" class="nav-menu sm:flex flex-wrap space-x-2 sm:space-x-6 text-sm font-medium animate-fadeIn" style="animation-delay: 0.2s;">
+                <a href="#home" class="text-white hover:text-gray-400 transition duration-300">Home</a>
+                <a href="#about" class="text-white hover:text-gray-400 transition duration-300">About</a>
+                <a href="#skills" class="text-white hover:text-gray-400 transition duration-300">Skills</a>
+                <a href="#work" class="text-white hover:text-gray-400 transition duration-300">Experience</a>
+                <a href="#contact" class="text-white hover:text-gray-400 transition duration-300">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="home" class="header-bg min-h-screen flex items-center py-12 lg:py-24">
+        <section class="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-between w-full">
+            <div class="lg:w-1/2 text-center lg:text-left mb-8 lg:mb-0">
+                <h1 class="text-5xl md:text-6xl font-extrabold tracking-wide animate-fadeIn" style="animation-delay: 0.3s;">
+                    Hi There,<br>
+                    I Am <span class="text-white font-extrabold">Aung Myint Tun</span>
+                </h1>
+                <div class="mt-8 flex flex-col items-center lg:items-start animate-fadeIn" style="animation-delay: 0.4s;">
+                    <span class="text-2xl text-gray-400 font-semibold mb-2">I Have Experience In</span>
+                    <span id="typewriter" class="typewriter text-xl sm:text-2xl md:text-3xl lg:text-4xl"></span>
+                </div>
+                <div class="mt-12 animate-fadeIn" style="animation-delay: 0.5s;">
+                    <a href="#about" class="px-10 py-4 bg-gray-600 text-white font-bold rounded-full text-xl transition duration-300 hover:bg-gray-700 shadow-lg">About Me</a>
+                </div>
+            </div>
+            <div class="lg:w-1/2 flex justify-center lg:justify-end animate-fadeIn" style="animation-delay: 0.6s;">
+                <div class="w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 relative">
+                    <img src="images/aung.jpg" alt="Aung Myint Tun" class="rounded-full shadow-2xl w-full h-full object-cover border-8 border-gray-400">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section id="about" class="bg-card py-12 lg:py-24">
+        <div class="container mx-auto px-4 flex flex-col lg:flex-row items-start lg:space-x-12 w-full">
+            
+            <div class="w-full lg:w-1/3 mb-8 lg:mb-0 flex flex-col items-center">
+                <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-black shadow-lg p-0.5 mb-8">
+                    <img src="images/aung1.jpg" alt="Aung Myint Tun" class="rounded-full shadow-lg mx-auto w-full h-full object-cover">
+                </div>
+                
+                <div class="w-full max-w-sm bg-black p-6 rounded-2xl border border-gray-800 shadow-2xl">
+                    <h3 class="text-2xl font-bold text-white mb-4 border-b border-gray-700 pb-2">Quick Info 🚀</h3>
+                    <ul class="space-y-3">
+                        <li class="flex justify-between items-center text-sm text-gray-400">
+                            <span class="font-medium text-white">Age:</span>
+                            <span>22 Years</span>
+                        </li>
+                        
+                        <li class="flex justify-between items-center text-sm text-gray-400">
+                            <span class="font-medium text-white mr-2">University:</span>
+                            <span class="text-right">University of Computer Studies Thaton</span>
+                        </li>
+                        <li class="flex justify-between items-center text-sm text-gray-400">
+                            <span class="font-medium text-white">Batch:</span>
+                            <span>2019-2020</span>
+                        </li>
+                        <li class="flex justify-between items-center text-sm text-gray-400">
+                            <span class="font-medium text-white">Field:</span>
+                            <span>Software Development</span>
+                        </li>
+                        <li class="flex justify-between items-center text-sm text-gray-400">
+                            <span class="font-medium text-white">Location:</span>
+                            <span>Thaton, Myanmar</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="w-full lg:w-2/3">
+                <h2 class="text-5xl font-extrabold text-white mb-6 border-b-2 border-gray-600 pb-2">About Me</h2>
+                
+                <p class="text-xl text-gray-300 leading-relaxed mb-8 font-normal">
+                    I am a 22 years old fourth year Computer Science student passionate about building innovative and impactful software. My academic journey has provided a strong foundation, and I am proficient in modern development technologies.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <div class="p-6 bg-black rounded-xl border border-gray-800 hover:border-blue-500 transition duration-300">
+                        <i class="fas fa-graduation-cap text-3xl text-blue-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold text-white mb-2">Academic Foundation</h3>
+                        <p class="text-gray-400">
+                            Currently pursuing a Computer Science degree at University of Computer Studies Thaton , with a strong focus on core CS principles and theory.
+                        </p>
+                    </div>
+
+                    <div class="p-6 bg-black rounded-xl border border-gray-800 hover:border-green-500 transition duration-300">
+                        <i class="fas fa-code text-3xl text-green-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold text-white mb-2">Proficient Technologies</h3>
+                        <p class="text-gray-400">
+                            Experienced in developing applications using Flutter, PHP, and Laravel, enabling me to build robust web and mobile solutions.
+                        </p>
+                    </div>
+
+                    <div class="p-6 bg-black rounded-xl border border-gray-800 hover:border-yellow-500 transition duration-300">
+                        <i class="fas fa-trophy text-3xl text-yellow-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold text-white mb-2">Proven Success</h3>
+                        <p class="text-gray-400">
+                            Recognized for dedication and collaborative spirit, having received prizes at the University's annual Project Show with my team.
+                        </p>
+                    </div>
+
+                    <div class="p-6 bg-black rounded-xl border border-gray-800 hover:border-red-500 transition duration-300">
+                        <i class="fas fa-handshake text-3xl text-red-400 mb-3"></i>
+                        <h3 class="text-xl font-semibold text-white mb-2">Ready for Real-World Challenges</h3>
+                        <p class="text-gray-400">
+                            Confident in my ability to contribute effectively and eager to apply my knowledge and teamwork skills to professional projects.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="header-bg py-12 lg:py-24">
+        <div class="container mx-auto px-4 flex flex-col items-center w-full">
+            <h2 class="text-4xl font-extrabold text-white mb-10 text-center">Skills & Abilities</h2>
+            <div class="w-full max-w-5xl">
+                <h2 class="text-4xl font-extrabold text-white mb-10">Main Skills</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 bg-card p-4 sm:p-8 rounded-2xl shadow-xl w-full mb-16">
+                    <div class="skill-card p-4 sm:p-6 text-center transform transition-transform duration-300 hover:scale-105">
+                        <i class="fab fa-php fa-3x sm:fa-4x text-white mb-4"></i>
+                        <p class="text-base sm:text-lg text-gray-400 font-bold">PHP</p>
+                    </div>
+                    <div class="skill-card p-4 sm:p-6 text-center transform transition-transform duration-300 hover:scale-105">
+                        <i class="fas fa-code fa-3x sm:fa-4x text-white mb-4"></i>
+                        <p class="text-base sm:text-lg text-gray-400 font-bold">Laravel</p>
+                    </div>
+                    <div class="skill-card p-4 sm:p-6 text-center transform transition-transform duration-300 hover:scale-105">
+                        <i class="fas fa-mobile-alt fa-3x sm:fa-4x text-white mb-4"></i>
+                        <p class="text-base sm:text-lg text-gray-400 font-bold">Flutter</p>
+                    </div>
+                    <div class="skill-card p-4 sm:p-6 text-center transform transition-transform duration-300 hover:scale-105">
+                        <i class="fas fa-code fa-3x sm:fa-4x text-white mb-4"></i>
+                        <p class="text-base sm:text-lg text-gray-400 font-bold">Dart</p>
+                    </div>
+                    <div class="skill-card p-4 sm:p-6 text-center transform transition-transform duration-300 hover:scale-105">
+                        <i class="fas fa-database fa-3x sm:fa-4x text-white mb-4"></i>
+                        <p class="text-base sm:text-lg text-gray-400 font-bold">MySQL</p>
+                    </div>
+                    <div class="skill-card p-4 sm:p-6 text-center transform transition-transform duration-300 hover:scale-105">
+                        <i class="fas fa-database fa-3x sm:fa-4x text-white mb-4"></i>
+                        <p class="text-base sm:text-lg text-gray-400 font-bold">PgSQL</p>
+                    </div>
+                    <div class="skill-card p-4 sm:p-6 text-center transform transition-transform duration-300 hover:scale-105">
+                        <i class="fas fa-cloud fa-3x sm:fa-4x text-white mb-4"></i>
+                        <p class="text-base sm:text-lg text-gray-400 font-bold">Supabase</p>
+                    </div>
+                    <div class="skill-card p-4 sm:p-6 text-center transform transition-transform duration-300 hover:scale-105">
+                        <i class="fab fa-aws fa-3x sm:fa-4x text-white mb-4"></i>
+                        <p class="text-base sm:text-lg text-gray-400 font-bold">AWS</p>
+                    </div>
+                    <div class="skill-card p-4 sm:p-6 text-center transform transition-transform duration-300 hover:scale-105">
+                        <i class="fab fa-html5 fa-3x sm:fa-4x text-white mb-4"></i>
+                        <p class="text-base sm:text-lg text-gray-400 font-bold">HTML</p>
+                    </div>
+                    <div class="skill-card p-4 sm:p-6 text-center transform transition-transform duration-300 hover:scale-105">
+                        <i class="fab fa-css3-alt fa-3x sm:fa-4x text-white mb-4"></i>
+                        <p class="text-base sm:text-lg text-gray-400 font-bold">CSS</p>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full max-w-5xl">
+                <h2 class="text-4xl font-extrabold text-white mb-10">Other Skills</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 bg-card p-4 sm:p-8 rounded-2xl shadow-xl w-full mb-16">
+                    <div class="skill-card p-4 sm:p-6 text-center transform transition-transform duration-300 hover:scale-105">
+                        <i class="fab fa-java fa-3x sm:fa-4x text-white mb-4"></i>
+                        <p class="text-base sm:text-lg text-gray-400 font-bold">JAVA</p>
+                    </div>
+                    <div class="skill-card p-4 sm:p-6 text-center transform transition-transform duration-300 hover:scale-105">
+                        <i class="fab fa-js-square fa-3x sm:fa-4x text-white mb-4"></i>
+                        <p class="text-base sm:text-lg text-gray-400 font-bold">JavaScript</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="w-full max-w-5xl bg-card p-4 sm:p-8 rounded-2xl shadow-xl bar-chart-container">
+                <h3 class="text-4xl font-bold text-white mb-10 text-center">Proficiency Bar Chart 📊</h3>
+                
+                <div class="flex justify-between items-end h-80 space-x-4 px-4 pb-4">
+
+                    <div class="flex flex-col items-center w-1/8 h-full group">
+                        <span class="text-white text-sm font-semibold mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">80%</span>
+                        <div class="w-8 sm:w-10 bg-gray-700 rounded-t-lg h-full relative overflow-hidden">
+                            <div class="bg-blue-500 w-full absolute bottom-0 animate-fillBar-start" style="--bar-height: 80%;"></div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-400 mt-2 text-center">PHP</span>
+                    </div>
+
+                    <div class="flex flex-col items-center w-1/8 h-full group">
+                        <span class="text-white text-sm font-semibold mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">60%</span>
+                        <div class="w-8 sm:w-10 bg-gray-700 rounded-t-lg h-full relative overflow-hidden">
+                            <div class="bg-blue-500 w-full absolute bottom-0 animate-fillBar-start" style="--bar-height: 60%;"></div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-400 mt-2 text-center">Laravel</span>
+                    </div>
+
+                    <div class="flex flex-col items-center w-1/8 h-full group">
+                        <span class="text-white text-sm font-semibold mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">65%</span>
+                        <div class="w-8 sm:w-10 bg-gray-700 rounded-t-lg h-full relative overflow-hidden">
+                            <div class="bg-blue-500 w-full absolute bottom-0 animate-fillBar-start" style="--bar-height: 65%;"></div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-400 mt-2 text-center">Flutter</span>
+                    </div>
+
+                    <div class="flex flex-col items-center w-1/8 h-full group">
+                        <span class="text-white text-sm font-semibold mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">60%</span>
+                        <div class="w-8 sm:w-10 bg-gray-700 rounded-t-lg h-full relative overflow-hidden">
+                            <div class="bg-blue-500 w-full absolute bottom-0 animate-fillBar-start" style="--bar-height: 60%;"></div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-400 mt-2 text-center">Dart</span>
+                    </div>
+
+                    <div class="flex flex-col items-center w-1/8 h-full group">
+                        <span class="text-white text-sm font-semibold mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">75%</span>
+                        <div class="w-8 sm:w-10 bg-gray-700 rounded-t-lg h-full relative overflow-hidden">
+                            <div class="bg-blue-500 w-full absolute bottom-0 animate-fillBar-start" style="--bar-height: 75%;"></div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-400 mt-2 text-center">HTML</span>
+                    </div>
+
+                    <div class="flex flex-col items-center w-1/8 h-full group">
+                        <span class="text-white text-sm font-semibold mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">70%</span>
+                        <div class="w-8 sm:w-10 bg-gray-700 rounded-t-lg h-full relative overflow-hidden">
+                            <div class="bg-blue-500 w-full absolute bottom-0 animate-fillBar-start" style="--bar-height: 70%;"></div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-400 mt-2 text-center">CSS</span>
+                    </div>
+
+                    <div class="flex flex-col items-center w-1/8 h-full group">
+                        <span class="text-white text-sm font-semibold mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">40%</span>
+                        <div class="w-8 sm:w-10 bg-gray-700 rounded-t-lg h-full relative overflow-hidden">
+                            <div class="bg-blue-500 w-full absolute bottom-0 animate-fillBar-start" style="--bar-height: 40%;"></div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-400 mt-2 text-center">JavaScript</span>
+                    </div>
+                    
+                    <div class="flex flex-col items-center w-1/8 h-full group">
+                        <span class="text-white text-sm font-semibold mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">40%</span>
+                        <div class="w-8 sm:w-10 bg-gray-700 rounded-t-lg h-full relative overflow-hidden">
+                            <div class="bg-blue-500 w-full absolute bottom-0 animate-fillBar-start" style="--bar-height: 40%;"></div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-400 mt-2 text-center">JAVA</span>
+                    </div>
+                </div>
+                
+                <div class="w-full h-1 bg-gray-600"></div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="header-bg py-12 lg:py-24">
+        <div class="container mx-auto px-4 flex flex-col items-center justify-center w-full">
+            <h2 class="text-4xl font-extrabold text-white mb-10">Projects Made</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10 w-full">
+                <div class="bg-card rounded-2xl overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
+                    <img src="https://placehold.co/600x400/000000/FFFFFF?text=Project+1" alt="Project 1" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white">Tree Detection</h3>
+                        <p class="text-gray-400 mt-2">A project focused on identifying and classifying trees using machine learning.</p>
+                    </div>
+                </div>
+                <div class="bg-card rounded-2xl overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
+                    <img src="https://placehold.co/600x400/000000/FFFFFF?text=Project+2" alt="Project 2" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white">Custom 3D Restaurant Website</h3>
+                        <p class="text-gray-400 mt-2">A web-based 3D simulation of a restaurant, built with Three.js.</p>
+                    </div>
+                </div>
+                <div class="bg-card rounded-2xl overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
+                    <img src="https://placehold.co/600x400/000000/FFFFFF?text=Project+3" alt="Project 3" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white">Love Counter</h3>
+                        <p class="text-gray-400 mt-2">An app that tracks the duration of a relationship.</p>
+                    </div>
+                </div>
+                <div class="bg-card rounded-2xl overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
+                    <img src="https://placehold.co/600x400/000000/FFFFFF?text=Project+4" alt="Project 4" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white">AI Stage 6/Women</h3>
+                        <p class="text-gray-400 mt-2">An AI-powered tool for a specific use case related to stages of women.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="contact" class="header-bg py-12 lg:py-24">
+    <div class="container mx-auto px-4 flex flex-col items-center w-full">
+        <h2 class="text-4xl font-extrabold text-white mb-10 text-center">Get In Touch 📧</h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 w-full max-w-6xl">
+
+            <div class="bg-card p-6 sm:p-8 rounded-2xl shadow-2xl">
+                <h3 class="text-3xl font-bold text-white mb-6 border-b border-gray-700 pb-3">Send Me a Message</h3>
+                <form action="#" method="POST" class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required class="form-input">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required class="form-input">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Let's build something great together..." required class="form-input"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-indigo-600 text-white font-bold rounded-lg transition duration-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 mt-4">
+                        <i class="fas fa-paper-plane mr-2"></i> Send Message
+                    </button>
+                </form>
+            </div>
+
+            <div class="bg-card p-6 sm:p-8 rounded-2xl shadow-2xl flex flex-col justify-center space-y-8">
+                <h3 class="text-3xl font-bold text-white mb-4 border-b border-gray-700 pb-3">My Details</h3>
+                
+                <div class="flex items-start space-x-4 text-base sm:text-lg text-gray-300">
+                    <i class="fas fa-envelope text-white text-2xl mt-1 w-6 flex-shrink-0"></i>
+                    <span class="break-all">aungmyinttun2003@gmail.com</span>
+                </div>
+                
+                <div class="flex items-start space-x-4 text-base sm:text-lg text-gray-300">
+                    <i class="fas fa-phone text-white text-2xl mt-1 w-6 flex-shrink-0"></i>
+                    <span>09446895128</span>
+                </div>
+                
+                <div class="flex items-start space-x-4 text-base sm:text-lg text-gray-300">
+                    <i class="fab fa-github text-white text-2xl mt-1 w-6 flex-shrink-0"></i>
+                    <span>phoetone</span>
+                </div>
+                
+                <div class="flex items-start space-x-4 text-base sm:text-lg text-gray-300">
+                    <i class="fas fa-map-marker-alt text-white text-2xl mt-1 w-6 flex-shrink-0"></i>
+                    <span>Thaton, Mon State, Myanmar</span>
+                </div>
+                
+                <div class="flex items-start space-x-4 text-base sm:text-lg text-gray-300">
+                    <i class="fas fa-graduation-cap text-white text-2xl mt-1 w-6 flex-shrink-0"></i>
+                    <span>University of Computer Studies Thaton</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<footer class="bg-black py-8 mt-0 text-center text-gray-600 text-lg shadow-md">
+        <p>&copy; <span id="current-year"></span> Aung Myint Tun.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const navLinks = document.getElementById('nav-links');
+        mobileMenuButton.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Typewriter effect logic
+        const textToType = ["Mobile App Development", "Web Development", "Teamwork"];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 150;
+        const deletingSpeed = 100;
+        const delayBetweenTexts = 2000;
+        const typewriterElement = document.getElementById('typewriter');
+
+        function type() {
+            const currentText = textToType[textIndex];
+            if (isDeleting) {
+                typewriterElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriterElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let speed = isDeleting ? deletingSpeed : typingSpeed;
+
+            if (!isDeleting && charIndex === currentText.length) {
+                speed = delayBetweenTexts;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % textToType.length;
+            }
+
+            setTimeout(type, speed);
+        }
+
+        // Get current year for footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // **Animated Vertical Bar Chart Script**
+        const observeSkills = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('.animate-fillBar-start').forEach(bar => {
+                        // 1. Remove the initial class
+                        bar.classList.remove('animate-fillBar-start');
+                        
+                        // 2. Add the active class to trigger the animation
+                        bar.classList.add('animate-fillBar-active');
+                    });
+                    // Stop observing after the animation has been triggered once
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { 
+            // Trigger when 50% of the element is visible
+            threshold: 0.5 
+        });
+
+        // The target element is the container holding the bar chart
+        const proficiencySection = document.querySelector('.bar-chart-container');
+        if (proficiencySection) {
+            observeSkills.observe(proficiencySection);
+        }
+        // End Animated Vertical Bar Chart Script
+
+        // Start the typewriter effect after initial animation
+        window.addEventListener('load', () => {
+            setTimeout(type, 1000); // Start after 1 second for the fadeIn animation to complete
+        });
+    </script>
+</body>
+</html>
